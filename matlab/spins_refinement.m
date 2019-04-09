@@ -2,7 +2,8 @@
 % bottom boundary.
 
 clearvars
-n = 4;              % n times of original resolution
+nx = 8;             % increase x resolution nx times
+nz = 3;             % increase z resolution nz times
 ii = 100;           % number of output to interpolate
 method = 'cubic';       % Matlab built-in interpolation method
                         % 'nearest', 'linear', 'spline' or 'cubic'
@@ -24,8 +25,8 @@ type_z = params.type_z;
 dx = x(2,2) - x(1,1);
 
 %% Define new grids
-Nx_new = n*Nx;      % n times resolution in x
-Nz_new = n*Nz;      % n times resolution in z
+Nx_new = nx*Nx;      % nx times resolution in x
+Nz_new = nz*Nz;      % nz times resolution in z
 
 x1d = Lx*(0.5:Nx_new-0.5)/Nx_new;           % periodic/free-slip in x
 switch type_z
