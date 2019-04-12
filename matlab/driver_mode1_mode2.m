@@ -1,5 +1,8 @@
-%DRIVER_ISWLONG     u = w = 0, rho = rhobar(z - eta), where eta has both a
-% seiche and a sech^2 disturbance. No interpolation needed.
+%% driver_mode1_mode.m
+% Driver script for mode1/mode2 tutorial from the fluids wiki.
+% Parameter file 'mode1_mode2.txt' contains list of cases to run
+% with different parameters. This script makes the corresponding
+% spins.conf files and the initial u,v,w,rho fields for the model.
 
 clearvars
 
