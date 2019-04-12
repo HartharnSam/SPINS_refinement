@@ -2,3 +2,12 @@
 .DS*
 
 *.bin
+
+*.[0-9]*
+*.orig
+
+base/
+gravity/
+mode1/
+mode2/
+lamp/

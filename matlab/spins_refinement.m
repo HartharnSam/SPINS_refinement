@@ -2,9 +2,9 @@
 % bottom boundary.
 
 clearvars
-nx = 8;             % increase x resolution nx times
-nz = 3;             % increase z resolution nz times
-ii = 100;           % number of output to interpolate
+nx = 2;             % increase x resolution nx times
+nz = 2;             % increase z resolution nz times
+ii = 10;           % number of output to interpolate
 method = 'cubic';       % Matlab built-in interpolation method
                         % 'nearest', 'linear', 'spline' or 'cubic'
 
@@ -27,6 +27,9 @@ dx = x(2,2) - x(1,1);
 %% Define new grids
 Nx_new = nx*Nx;      % nx times resolution in x
 Nz_new = nz*Nz;      % nz times resolution in z
+
+params.('Nx') = Nx_new;    % Update resolution in spins parameters struct
+params.('Nz') = Nz_new;    % Update resolution in spins parameters struct
 
 x1d = Lx*(0.5:Nx_new-0.5)/Nx_new;           % periodic/free-slip in x
 switch type_z
@@ -87,34 +90,14 @@ fid = fopen('w.orig','wb'); fwrite(fid,wspins,'double'); fclose(fid);
 
 %% Write parameters to spins.conf
 
+
 fid = fopen('spins.conf','wt');
-fprintf(fid,'Lx = %12.8f \n',Lx);
-fprintf(fid,'Lz = %12.8f \n',Lz);
-fprintf(fid,'Nx = %d \n',Nx);
-fprintf(fid,'Nz = %d \n',Nz);
-fprintf(fid,'type_x = %s \n',type_x);
-fprintf(fid,'type_z = %s \n',type_z);
+for i=1:numel(fieldnames(params))
+    fields=fieldnames(params);
+    fieldname = char(fields(i));
+    value = string(params.(fieldname));
+    fprintf(fid,'%s=%f \n', fieldname, value)
 
-fprintf(fid,'min_x = %12.8f\n',0);
-fprintf(fid,'min_z = %12.8f\n',0);
-fprintf(fid,'mapped_grid = false\n');
+end
 
-fprintf(fid,'file_type = MATLAB\n');
-fprintf(fid,'u_file = u.orig\n');
-fprintf(fid,'w_file = w.orig\n');
-fprintf(fid,'rho_file = rho.orig\n');
-
-fprintf(fid,'g = %12.8f \n',params.g);
-fprintf(fid,'rot_f = %12.8f \n',params.rot_f);
-fprintf(fid,'rho_0 = %12.8f \n',1000);
-fprintf(fid,'visco = %12.8f \n',params.visco);
-fprintf(fid,'kappa_rho = %12.8f \n',params.kappa_rho);
-fprintf(fid,'perturb = %f \n',params.perturb);
-
-% fprintf(fid,'init_time = %12.8f\n',init_time);
-fprintf(fid,'final_time = %12.8f\n',params.final_time);
-fprintf(fid,'plot_interval = %12.8f \n',params.plot_interval);
-fprintf(fid,'restart = false \n');
-fclose(fid);
-
-quit
+% quit
