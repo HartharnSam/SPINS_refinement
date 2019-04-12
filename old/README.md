@@ -1,2 +1,1 @@
-Old matlab scripts not as relevant to our project
-
+Scripts from matlab2spins that might not be as relvant as those in matlab folder
