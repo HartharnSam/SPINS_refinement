@@ -1,5 +1,3 @@
 # Tutorials directory
 
-This directory should contain the files needed to run the SPINS tutorials, other than matlab scripts in the `../matlab/` directory.
-
-The instructions should primarily live on the Fluids wiki.
+This tutorial is an extension of the [SPINS tutorial](https://wiki.math.uwaterloo.ca/fluidswiki/index.php?title=SPINS_Tutorial) on the fluids wiki. In that tutorial, you manually changed parameters in the spins.conf file to run different cases. In this tutorial, you will use a text file specifying parameters for a selection of cases to automatically set up the cases and submit them all to the compute canada scheduler.
