@@ -8,7 +8,7 @@ This tutorial is an extension of the [SPINS tutorial](https://wiki.math.uwaterlo
 These tools are intended to help us in carrying out well designed suites of simulations. The idea is that once you have an idea for an experiment in mind, the general workflow will be to:
 
 * Design a base case to see if what you want to do is possible. Run this at low resolution as a proof of concept.
-* Once you have the base case running, design a set of cases to explore the effect of certain parameters, or find the ideal parameter value for your experiment.
+* Once you have the base case running, design a set of cases to explore the effect of certain parameters, or find the ideal parameter value for your experiment. These tools automate the process of creating the case files, directories, and submitting the jobs.
 * Restart one or more of the above cases from a specified time in the simulation at higher resolution. For example, let the wave propagate and form at low resolution, and increase the resolution before it begins shoaling.
 
 ## Designing cases to explore parameter space
