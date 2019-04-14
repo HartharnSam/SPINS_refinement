@@ -24,19 +24,13 @@ visco=1.e-6;
 kappa_rho=2.e-7;
 kappa_tracer=2.e-7;
 
+pert = 0.0;
+
+%% These are specific to this experiment
 delta_rho=0.02;
 h_halfwidth=0.01;
-
-pert = 0.0;
-%% Get rid of this block and just put it into SPINS.conf?
 h_halfwidth=0.01;
 delta_x=0.04;
-dye1_loc=2.0;
-dye2_loc=5.0;
-dye1_width=0.2;
-dye2_width=0.2;
-dye_halfwidth=0.005;
-enable_tracer=true;
 
 final_time=60;
 plot_interval=1;
@@ -49,12 +43,15 @@ cdir=pwd; % Remember directory script is run from
 for numcase = 1:height(par)
     casename = char(par.casename(numcase));
 
+    %% Read in case dependent parameters here
+
     % Grid
     Lx = par.Lx(numcase);
     Lz = par.Lz(numcase);
     Nx = par.Nx(numcase);
     Nz = par.Nz(numcase);
     
+    % Stratification
     pyc_loc=par.pyc_loc(numcase);
     H1=par.H1(numcase);
     H2=par.H2(numcase);
@@ -67,7 +64,7 @@ for numcase = 1:height(par)
 %    z = flipud(0.5*Lz*(ztmp+1));    % so that z is in increasing order
     [xx,zz] = meshgrid(x,z);	% 2D grid in Matlab's meshgrid format
     
-    % Stratification
+    % Compute stratification
     rho1 = -0.5*delta_rho*tanh( (zz - (pyc_loc - H1))/h_halfwidth);
     rho2 = -0.5*delta_rho*tanh((zz-pyc_loc)/h_halfwidth);
     rho3 = -0.25*delta_rho* ( tanh((zz-pyc_loc + 0.5*H2)/h_halfwidth) + tanh((zz-pyc_loc - 0.5*H2)/h_halfwidth));
@@ -79,11 +76,11 @@ for numcase = 1:height(par)
     rho = filt1.*rho1 + filt2.*rho2 + filt3.*rho3;
 
     
-    % Velocity
+    % Compute initial velocity
     u = zeros(size(rho));
     w = zeros(size(rho));
 
-    if test     % plot
+    if test     % plot initial density configuration
         figure(numcase)
         pcolor(xx,zz,rho), shading flat, colormap darkjet
         
@@ -95,11 +92,12 @@ for numcase = 1:height(par)
         uspins = permute(u,[2,1]);
         wspins = permute(w,[2,1]);
 
+        % Write rho,u,w to file
         fid = fopen('rho.orig','wb'); fwrite(fid,dspins,'double'); fclose(fid);
         fid = fopen('u.orig','wb'); fwrite(fid,uspins,'double'); fclose(fid);
         fid = fopen('w.orig','wb'); fwrite(fid,wspins,'double'); fclose(fid);
         
-        % Write parameters to spins.conf
+        %% Write params to spins.conf. Change what is written according to your experiment.
         fid = fopen('spins.conf','wt');
         fprintf(fid,'Lx = %12.8f \n',Lx);
         fprintf(fid,'Ly = 0.30 \n');
@@ -115,7 +113,6 @@ for numcase = 1:height(par)
         fprintf(fid,'type_x = FREE_SLIP \n');
         fprintf(fid,'type_y = FOURIER \n');
         fprintf(fid,'type_z = FREE_SLIP \n');
-%        fprintf(fid,'type_z = NO_SLIP \n');
         fprintf(fid,'mapped_grid = false\n');
         
         fprintf(fid,'file_type = MATLAB\n');
@@ -139,16 +136,7 @@ for numcase = 1:height(par)
         fprintf(fid,'L2=%12.8f \n',L2);
         fprintf(fid,'h_halfwidth=%12.8f \n',h_halfwidth);
         fprintf(fid,'delta_x=%12.8f \n',delta_x);
-%        fprintf(fid,'dye1_loc=%12.8f \n',dye1_loc);
-%        fprintf(fid,'dye2_loc=%12.8f \n',dye2_loc);
-%        fprintf(fid,'dye1_width=%12.8f \n',dye1_width);
-%        fprintf(fid,'dye2_width=%12.8f \n',dye2_width);
-%        fprintf(fid,'dye_halfwidth=0.005 \n');
         fprintf(fid,'enable_tracer = false \n');
-
-%        fprintf(fid,'hill_height = 0.0 \n');
-%        fprintf(fid,'hill_centre = 4.8 \n');
-%        fprintf(fid,'hill_width = 0.10 \n');
         
         fprintf(fid,'final_time = %12.8f\n',final_time);
         fprintf(fid,'plot_interval = %12.8f \n',plot_interval);
