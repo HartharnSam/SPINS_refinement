@@ -1,5 +1,5 @@
 #!/bin/bash
-# bash script for submitting a Matlab job to the sharcnet Graham queue
+# Sample bash script for submitting a Matlab job to the sharcnet Graham queue
 
 #SBATCH --mem-per-cpu=2G                         # memory per processor
 #SBATCH --time=00-01:00                          # time (DD-HH:MM)

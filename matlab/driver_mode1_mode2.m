@@ -44,6 +44,7 @@ plot_interval=1;
 % Case dependent parameters
 par = readtable('mode1_mode2.txt');     % this may not work for R2017b or later
 
+cdir=pwd; % Remember directory script is run from
 %% Loop through different cases
 for numcase = 1:height(par)
     casename = char(par.casename(numcase));
@@ -81,8 +82,6 @@ for numcase = 1:height(par)
     % Velocity
     u = zeros(size(rho));
     w = zeros(size(rho));
-
-    cdir = pwd; % remember directory script is run from
 
     if test     % plot
         figure(numcase)
@@ -166,7 +165,7 @@ for numcase = 1:height(par)
         fprintf(fid,'f_strength = 20.0 \n');
         fclose(fid);
         
-        cd cdir
+        cd(cdir);
     end
 end
 
