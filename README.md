@@ -18,6 +18,7 @@ The `matlab.sh` submission script submits the jobs to the Graham scheduler. You 
 Grid refinement is done through the script `spins_refinement.m` in the `matlab` folder. This script has a lot in it, but it is easy to use. The typical steps you want to use to use the refinement script are:
 
  1. Adjust the parameters at the top of the script that specify the new grid size, which output to refine, and the interpolation method. The parameters are:
+
 ```matlab
  nx = 4;              % nx times of original resolution in x
  nz = 2;              % nz times of original resolution in z
@@ -33,6 +34,7 @@ Grid refinement is done through the script `spins_refinement.m` in the `matlab` 
  ```matlab
  params.visco = 1.e-7
  ```
+ 
  before the new `spins.conf` is written. A logical place could be after the new `Nx` and `Nz` are written:
  ```matlab
 
