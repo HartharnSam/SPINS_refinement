@@ -2,7 +2,8 @@
 % bottom boundary.
 
 clearvars
-n = 2;              % n times of original resolution
+nx = 2;           % nx times original resolution in x
+nz = 2;           % nz times original resolution in z
 ii = 2;           % number of output to interpolate
 method = 'spline';       % Matlab built-in interpolation method
                         % 'nearest', 'linear', 'spline' or 'cubic'
@@ -31,8 +32,8 @@ type_z = params.type_z;
 dx = x(2,2) - x(1,1);
 
 %% Define new grids
-Nx_new = n*Nx;      % n times resolution in x
-Nz_new = n*Nz;      % n times resolution in z
+Nx_new = nx*Nx;      % n times resolution in x
+Nz_new = nz*Nz;      % n times resolution in z
 
 % Update grids in spins.conf file
 params.Nx = Nx_new;
