@@ -2,10 +2,10 @@
 % bottom boundary.
 
 clearvars
-nx = 2;           % nx times original resolution in x
+nx = 4;           % nx times original resolution in x
 nz = 2;           % nz times original resolution in z
-ii = 2;           % number of output to interpolate
-method = 'spline';       % Matlab built-in interpolation method
+ii = 100;         % number of output to interpolate
+method = 'spline';      % Matlab built-in interpolation method
                         % 'nearest', 'linear', 'spline' or 'cubic'
 
 %% Read in old spins.conf, grids and fields
