@@ -4,7 +4,7 @@
 clearvars
 nx = 4;           % nx times original resolution in x
 nz = 2;           % nz times original resolution in z
-ii = 100;         % number of output to interpolate
+ii = 4;         % number of output to interpolate
 method = 'spline';      % Matlab built-in interpolation method
                         % 'nearest', 'linear', 'spline' or 'cubic'
 
@@ -89,6 +89,10 @@ rho2 = interp2(x1,z1,den1,x2d,z2d,method);
 dspins = permute(rho2,[2,1]);
 uspins = permute(u2,[2,1]);
 wspins = permute(w2,[2,1]);
+x2dspins = permute(z2d,[2,1]);
+z2dspins = permute(z2d,[2,1]);
+
+
 
 % Make a subdirectory and put new stuff there
 mkdir('high_res'), cd('high_res')
@@ -96,10 +100,21 @@ mkdir('high_res'), cd('high_res')
 fid = fopen('rho.orig','wb'); fwrite(fid,dspins,'double'); fclose(fid);
 fid = fopen('u.orig','wb'); fwrite(fid,uspins,'double'); fclose(fid);
 fid = fopen('w.orig','wb'); fwrite(fid,wspins,'double'); fclose(fid);
+fid = fopen('x2d','wb'); fwrite(fid,x2dspins,'double'); fclose(fid);
+fid = fopen('z2d','wb'); fwrite(fid,z2dspins,'double'); fclose(fid);
+
+
 
 %% Write parameters to spins.conf
 
 fid = fopen('spins.conf','wt');
+
+fprintf(fid,'file_type = MATLAB\n');
+fprintf(fid,'u_file = u.orig\n');
+fprintf(fid,'w_file = w.orig\n');
+fprintf(fid,'rho_file = rho.orig\n');
+fprintf(fid,'xgrid = x2d\n');
+fprintf(fid,'zgrid = z2d\n');
 
 for i=1:numel(fieldnames(params))
     fields=fieldnames(params);
