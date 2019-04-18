@@ -43,3 +43,5 @@ Grid refinement is done through the script `spins_refinement.m` in the `matlab` 
  params.Nz = Nz_new;
  params.visco = 1.e-7; % Add this
  ```
+
+Note: `spins_refinment.m` requires the [SPINSmatlab](https://git.uwaterloo.ca/ddeepwel/SPINSmatlab) repository to run. Clone the SPINSmatlab repository and follow the instructions over there to add to your matlab path.
