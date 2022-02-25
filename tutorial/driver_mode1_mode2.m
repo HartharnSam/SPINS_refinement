@@ -6,7 +6,7 @@
 
 clearvars
 
-test = false;                       % set to false to write data to disk
+test = true;                       % set to false to write data to disk
 
 % Case independent parameters
 min_x=0.0;
@@ -17,18 +17,17 @@ type_x='Free_SLIP';
 type_y='FOURIER';
 type_z='FREE_SLIP';
 
-g=9.81;
-rot_f=0.0;
-rho_0=1000.0;
-visco=1.e-6;
-kappa_rho=2.e-7;
-kappa_tracer=2.e-7;
+g = 9.81;
+rot_f = 0.0;
+rho_0 = 1000.0;
+visco = 1.e-6;
+kappa_rho = 2.e-7;
+kappa_tracer = 2.e-7;
 
 pert = 0.0;
 
 %% These are specific to this experiment
 delta_rho=0.02;
-h_halfwidth=0.01;
 h_halfwidth=0.01;
 delta_x=0.04;
 
@@ -40,7 +39,7 @@ par = readtable('mode1_mode2.txt');     % this may not work for R2017b or later
 
 cdir=pwd; % Remember directory script is run from
 %% Loop through different cases
-for numcase = 1:height(par)
+for numcase = 1%:height(par)
     casename = char(par.casename(numcase));
 
     %% Read in case dependent parameters here
