@@ -7,7 +7,7 @@
 
 clearvars
 
-test = true;                       % set to false to write data to disk
+test = false;                       % set to false to write data to disk
 
 % Case independent parameters
 % Spatial parameters
@@ -58,7 +58,7 @@ par = readtable('icecoveredwaters.txt');     % this may not work for R2017b or l
 
 cdir=pwd; % Remember directory script is run from
 %% Loop through different cases
-for numcase = 1%:%height(par)
+for numcase = 1:height(par)
     casename = char(par.casename(numcase));
     
     %% Read in case dependent parameters here
@@ -245,5 +245,6 @@ end
 
 fid = fopen('../case_list','wt');
 for i = 1:height(par)
-    fprintf(fid, char(par.casename(numcase)));
+    fprintf(fid, char(par.casename(i)));
+	fprintf(fid, char('\n'));
 end
