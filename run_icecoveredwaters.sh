@@ -3,8 +3,7 @@
 #SBATCH --array=1%1
 #SBATCH --ntasks=16
 #SBATCH --mail-type=ALL
-module load intel/2019a
-module load OpenMPI
+module load intel Autoconf/2.69-GCCcore-8.2.0 gettext/0.19.8.1-GCCcore-8.2.0 Automake/1.16.1-GCCcore-8.2.0 libtool/2.4.6-GCCcore-8.2.0
 
 #Set Directory
 DIR=$(sed -n "${SLURM_ARRAY_TASK_ID}p" case_list)
