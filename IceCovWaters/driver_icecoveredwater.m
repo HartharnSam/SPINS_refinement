@@ -11,7 +11,7 @@ test = false;                       % set to false to write data to disk
 
 % Case independent parameters
 % Spatial parameters
-Lx = 7.0;
+Lx = 10.0;
 Ly = 0.1;
 Lz = 0.3;
 Nx = 4096;
