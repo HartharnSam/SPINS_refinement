@@ -13,13 +13,13 @@ test = false;                       % set to false to write data to disk
 % Spatial parameters
 Lx = 10.0;
 Ly = 0.1;
-Lz = 0.3;
+Lz = 0.405;
 Nx = 4096;
 Ny = 1;
 Nz = 256;
 min_x = 0.0;
 min_y = 0.0;
-min_z = -0.3;
+min_z = -0.405;
 % Expansion types
 type_x = 'FREE_SLIP';
 type_y = 'FOURIER';
@@ -119,7 +119,7 @@ for numcase = 1:height(par)
         fid = fopen('spins.conf','wt');
         fprintf(fid, '## MODE-1 ISW Shoaling Configuration File \n');
         fprintf(fid, 'name = %s', casename);
-        fprintf(fid, '\n # Spatial Parameters \n');
+        fprintf(fid, '\n# Spatial Parameters \n');
         fprintf(fid,'Lx = %6.2f \n', Lx);
         fprintf(fid,'Ly = %6.2f \n', Ly);
         fprintf(fid,'Lz = %6.2f \n', Lz);
@@ -131,13 +131,13 @@ for numcase = 1:height(par)
         fprintf(fid,'min_y = %6.2f \n', min_y);
         fprintf(fid,'min_z = %6.2f \n', min_z);
         
-        fprintf(fid, '\n # Expansion types \n');
+        fprintf(fid, '\n# Expansion types \n');
         fprintf(fid,'type_x = %s \n', type_x);
         fprintf(fid,'type_y = %s \n', type_y);
         fprintf(fid,'type_z = %s \n', type_z);
         fprintf(fid,'mapped_grid = %s \n', mapped_grid);
         
-        fprintf(fid, '\n # Physical Parameters \n');
+        fprintf(fid, '\n# Physical Parameters \n');
         fprintf(fid,'g = %12.3f \n', g);
         fprintf(fid,'rot_f = %12.3f \n', rot_f);
         fprintf(fid,'rho_0 = %12.1f \n', rho_0);
@@ -146,7 +146,7 @@ for numcase = 1:height(par)
         fprintf(fid,'kappa_tracer = %.2e \n', kappa_tracer);
         fprintf(fid,'perturb = %.2e \n', pert);
         
-        fprintf(fid, '\n # Problem Parameters \n');
+        fprintf(fid, '\n# Problem Parameters \n');
         fprintf(fid,'delta_rho = %4.3f \n', delta_rho);
         fprintf(fid,'pyc_loc = %4.3f \n', pyc_loc);
         fprintf(fid,'h_halfwidth =%4.3f \n',h_halfwidth);
@@ -157,29 +157,29 @@ for numcase = 1:height(par)
         fprintf(fid,'dye_thickness=%4.3f \n',dye_thickness);
         fprintf(fid,'dye_halfwidth = %4.3f \n', dye_halfwidth);
         
-        fprintf(fid, '\n # Topography Parameters \n');
+        fprintf(fid, '\n# Topography Parameters \n');
         fprintf(fid,'ice_length = %4.3f \n', ice_length);
         fprintf(fid,'ice_thickness = %5.4f \n', ice_thickness);
         fprintf(fid,'ice_trans = %4.3f \n', ice_trans);
         %fprintf(fid,'hill_end_dist = %6.2f \n', hill_end_dist);
         
-        fprintf(fid, '\n # Temporal Parameters \n');
+        fprintf(fid, '\n# Temporal Parameters \n');
         fprintf(fid,'final_time = %12.8f\n',final_time);
         fprintf(fid,'plot_interval = %12.8f \n',plot_interval);
         
-        fprintf(fid, '\n # Restart Parameters \n');
+        fprintf(fid, '\n# Restart Parameters \n');
         fprintf(fid,'restart = false \n');
         fprintf(fid,'restart_time = 0.0 \n');
         fprintf(fid,'restart_sequence=0 \n');
         fprintf(fid,'restart_from_dump = false \n');
         fprintf(fid,'compute_time = -1 \n');
         
-        fprintf(fid, '\n # Filter Parameters \n');
+        fprintf(fid, '\n# Filter Parameters \n');
         fprintf(fid,'f_cutoff = %12.8f \n', f_cutoff);
         fprintf(fid,'f_order = %12.8f \n', f_order);
         fprintf(fid,'f_strength = %12.8f \n', f_strength);
         
-        fprintf(fid, '\n # Diagnostics \n');
+        fprintf(fid, '\n# Diagnostics \n');
         if compute_stresses_bottom
             fprintf(fid, 'compute_stresses_bottom = true');
         end
@@ -196,8 +196,8 @@ for numcase = 1:height(par)
         
         % And make the derivatives config file
         fid = fopen('spins.conf_deriv','wt');
-        fprintf(fid, '## derivative Configuration File \n');
-        fprintf(fid, '\n # Spatial Parameters \n');
+        fprintf(fid, '##derivative Configuration File \n');
+        fprintf(fid, '\n# Spatial Parameters \n');
         fprintf(fid,'Lx = %6.2f \n', Lx);
         fprintf(fid,'Ly = %6.2f \n', Ly);
         fprintf(fid,'Lz = %6.2f \n', Lz);
@@ -205,7 +205,7 @@ for numcase = 1:height(par)
         fprintf(fid,'Ny = %d \n', Ny);
         fprintf(fid,'Nz = %d \n', Nz);
         
-        fprintf(fid, '\n # Expansion types \n');
+        fprintf(fid, '\n# Expansion types \n');
         fprintf(fid,'type_x = %s \n', type_x);
         fprintf(fid,'type_y = %s \n', type_y);
         fprintf(fid,'type_z = %s \n', type_z);
