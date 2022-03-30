@@ -7,7 +7,7 @@
 
 clearvars
 
-test = true;                       % set to false to write data to disk
+test = false;                       % set to false to write data to disk
 
 % Case independent parameters
 % Spatial parameters
@@ -74,8 +74,8 @@ for numcase = 1:height(par)
     ice_length = par.ice_length(numcase);
     ice_thickness = par.ice_thickness(numcase);
     ice_trans = par.ice_trans(numcase);
-    amp = par.ice_rough_amp(numcase);
-	freq = par.ice_rough_freq(numcase);
+    ice_rough_amp = par.ice_rough_amp(numcase);
+    ice_rough_freq = par.ice_rough_freq(numcase);
     x = Lx*(0.5:Nx-0.5)/Nx;     % free-slip in x
     if strcmpi(type_z, 'free_slip')
         z = Lz*(0.5:Nz-0.5)/Nz;     % free-slip in z
@@ -95,7 +95,7 @@ for numcase = 1:height(par)
     % Compute zgrid / topography
     %topo = hill_slope/2 *(hill_length + d*(log(2*cosh((xx - a1)/d)) - log(2*cosh((xx-a2)/d))));
     ice_step = ((0.5*tanh((xx - (Lx-ice_length))/ice_trans)) + 0.5);
-    roughness = amp*sin(frq*pi*xx).*ice_step;
+    roughness = ice_rough_amp*sin(ice_rough_freq*pi*xx).*ice_step;
     
     topo = -(ice_thickness/2 + (ice_thickness*0.5*tanh((xx - (Lx-ice_length))/ice_trans))) + roughness;
     
@@ -124,10 +124,14 @@ for numcase = 1:height(par)
         dspins = permute(rho,[2,1]);
         uspins = permute(u,[2,1]);
         wspins = permute(w,[2,1]);
+	xspins = permute(xx, [2, 1]);
+	zspins = permute(zz, [2, 1]);
         
         fid = fopen('rho.orig','wb'); fwrite(fid,dspins,'double'); fclose(fid);
         fid = fopen('u.orig','wb'); fwrite(fid,uspins,'double'); fclose(fid);
         fid = fopen('w.orig','wb'); fwrite(fid,wspins,'double'); fclose(fid);
+	fid = fopen('xgrid', 'wb'); fwrite(fid, xspins, 'double'); fclose(fid);
+	fid = fopen('zgrid', 'wb'); fwrite(fid, zspins, 'double'); fclose(fid);
         
         %% Write params to spins.conf. Change what is written according to your experiment.
         fid = fopen('spins.conf','wt');
@@ -155,6 +159,8 @@ for numcase = 1:height(par)
         fprintf(fid,'u_file = u.orig\n');
         fprintf(fid,'w_file = w.orig\n');
         fprintf(fid,'rho_file = rho.orig\n');
+	fprintf(fid, 'xgrid = xgrid \n');
+	fprintf(fid, 'zgrid = zgrid \n');
         
         fprintf(fid, '\n# Physical Parameters \n');
         fprintf(fid,'g = %12.3f \n', g);
@@ -181,7 +187,7 @@ for numcase = 1:height(par)
         fprintf(fid,'ice_thickness = %5.4f \n', ice_thickness);
         fprintf(fid,'ice_trans = %4.3f \n', ice_trans);
 		fprintf(fid, 'ice_rough_amp = %4.3f \n', ice_rough_amp);
-		fprintf(fid, 'ice_rough_freq = %4.3f \n', ice_rough_amp);
+		fprintf(fid, 'ice_rough_freq = %4.3f \n', ice_rough_freq);
         %fprintf(fid,'hill_end_dist = %6.2f \n', hill_end_dist);
         
         fprintf(fid, '\n# Temporal Parameters \n');
@@ -202,10 +208,10 @@ for numcase = 1:height(par)
         
         fprintf(fid, '\n# Diagnostics \n');
         if compute_stresses_bottom
-            fprintf(fid, 'compute_stresses_bottom = true');
+            fprintf(fid, 'compute_stresses_bottom = true\n');
         end
         if compute_stresses_top
-            fprintf(fid, 'compute_stresses_top = true');
+            fprintf(fid, 'compute_stresses_top = true\n');
         end
         fclose(fid);
         

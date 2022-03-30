@@ -7,7 +7,7 @@
 
 clearvars
 
-test = false;                       % set to false to write data to disk
+test = true;                       % set to false to write data to disk
 
 % Case independent parameters
 % Spatial parameters
