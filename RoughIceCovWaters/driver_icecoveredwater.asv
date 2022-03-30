@@ -224,7 +224,7 @@ for numcase = 1:height(par)
         % And make the derivatives config file
         fid = fopen('spins.conf_deriv','wt');
         fprintf(fid, '## derivative Configuration File \n');
-        fprintf(fid, '\n# Spatial Parameters \n');
+        fprintf(fid, '\n # Spatial Parameters \n');
         fprintf(fid,'Lx = %6.2f \n', Lx);
         fprintf(fid,'Ly = %6.2f \n', Ly);
         fprintf(fid,'Lz = %6.2f \n', Lz);
@@ -232,7 +232,7 @@ for numcase = 1:height(par)
         fprintf(fid,'Ny = %d \n', Ny);
         fprintf(fid,'Nz = %d \n', Nz);
         
-        fprintf(fid, '\n# Expansion types \n');
+        fprintf(fid, '\n # Expansion types \n');
         fprintf(fid,'type_x = %s \n', type_x);
         fprintf(fid,'type_y = %s \n', type_y);
         fprintf(fid,'type_z = %s \n', type_z);
@@ -243,11 +243,11 @@ for numcase = 1:height(par)
             warning('derivatives not properly configured');
         end
         
-        fprintf(fid, '\n# Physical Parameters \n');
+        fprintf(fid, '\n # Physical Parameters \n');
         fprintf(fid,'rho_0 = %12.1f \n', rho_0);
         fprintf(fid,'visco = %.2e \n', visco);
         
-        fprintf(fid, '\n# Derivative Options \n');
+        fprintf(fid, '\n # Derivative Options \n');
         fprintf(fid,'deriv_files = u \n');
         fprintf(fid,'start_sequence = %d \n', 0);
         fprintf(fid,'final_sequence = %d \n', final_time);
